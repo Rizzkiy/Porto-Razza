@@ -1,0 +1,3246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio | Web Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variabel CSS untuk tema warna */
+        :root {
+            --primary: #FF0000; /* Merah terang */
+            --primary-dark: #8B0000; /* Merah gelap */
+            --secondary: #000000; /* Hitam */
+            --accent: #FF3333; /* Merah aksen */
+            --text: #FFFFFF; /* Putih untuk teks */
+            --text-secondary: #CCCCCC; /* Abu-abu untuk teks sekunder */
+            --card-bg: #1A1A1A; /* Latar belakang card */
+            --transition: all 0.3s ease;
+            --glow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+
+        /* Reset dan gaya dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: radial-gradient(circle at top right, #1a0000, #000000);
+        }
+
+        /* Gaya untuk container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--primary);
+            margin-left: 5px;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            margin-right: 8px;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        /* Home Section */
+        .home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .home-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .greeting {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .name {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.7s forwards;
+        }
+
+        .name span {
+            color: var(--primary);
+            position: relative;
+        }
+
+        .name span::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.5s ease;
+        }
+
+        .name:hover span::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .typing-text {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            height: 60px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
+        }
+
+        .typing-text span {
+            color: var(--primary);
+            border-right: 2px solid var(--primary);
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { border-color: var(--primary); }
+            50% { border-color: transparent; }
+        }
+
+        .description {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: var(--text-secondary);
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.1s forwards;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.3s forwards;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background-color: var(--accent);
+            color: var(--text);
+            transform: translateY(-3px);
+            box-shadow: var(--glow);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--text);
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.5s forwards;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--card-bg);
+            color: var(--text);
+            border-radius: 50%;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .social-links a:hover::before {
+            transform: scale(1);
+        }
+
+        .social-links a:hover {
+            color: var(--text);
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        /* Avatar dan Floating Icons */
+        .avatar-container {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .avatar {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            animation: float 6s ease-in-out infinite;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 70px rgba(255, 0, 0, 0.7);
+        }
+
+        .avatar::before {
+            content: '';
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.3) 0%, rgba(255, 0, 0, 0) 70%);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes glow {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+
+        .floating-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 0, 0, 0.2);
+            transition: var(--transition);
+            z-index: 0;
+            cursor: pointer;
+        }
+
+        /* Animasi Fade In */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Advanced Animations */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 20px 10px rgba(255, 0, 0, 0);
+            }
+        }
+
+        @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotate(-180deg) scale(0);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0) scale(1);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-7px);
+            }
+        }
+
+        /* Hack Animation Effects */
+        @keyframes screenShake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            10% { transform: translate(-5px, -5px) rotate(-1deg); }
+            20% { transform: translate(5px, 5px) rotate(1deg); }
+            30% { transform: translate(-5px, 5px) rotate(-1deg); }
+            40% { transform: translate(5px, -5px) rotate(1deg); }
+            50% { transform: translate(-5px, -5px) rotate(-1deg); }
+            60% { transform: translate(5px, 5px) rotate(1deg); }
+            70% { transform: translate(-5px, 5px) rotate(-1deg); }
+            80% { transform: translate(5px, -5px) rotate(1deg); }
+            90% { transform: translate(-5px, -5px) rotate(-1deg); }
+        }
+
+        @keyframes glitchEffect {
+            0%, 100% {
+                text-shadow: 0 0 0 transparent;
+            }
+            20% {
+                text-shadow: -2px 0 #ff0000, 2px 0 #00ff00;
+            }
+            40% {
+                text-shadow: 2px 0 #ff0000, -2px 0 #00ff00;
+            }
+            60% {
+                text-shadow: -2px 0 #0000ff, 2px 0 #ff00ff;
+            }
+            80% {
+                text-shadow: 2px 0 #00ffff, -2px 0 #ffff00;
+            }
+        }
+
+        @keyframes hackFlash {
+            0%, 100% { background-color: transparent; }
+            50% { background-color: rgba(255, 0, 0, 0.3); }
+        }
+
+        @keyframes matrixRain {
+            0% { transform: translateY(-100%); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .hacking-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9998;
+            display: none;
+            pointer-events: none;
+        }
+
+        .hacking-overlay.active {
+            display: block;
+            animation: hackFlash 0.5s ease-in-out infinite;
+        }
+
+        .matrix-code {
+            position: absolute;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            font-weight: bold;
+            white-space: nowrap;
+            animation: matrixRain 3s linear infinite;
+        }
+
+        body.screen-shake {
+            animation: screenShake 0.5s ease-in-out;
+        }
+
+        .glitch-text {
+            animation: glitchEffect 0.3s ease-in-out infinite;
+        }
+
+        /* More Dramatic Effects */
+        @keyframes intenseShake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            10% { transform: translate(-10px, -8px) rotate(-2deg); }
+            20% { transform: translate(10px, 8px) rotate(2deg); }
+            30% { transform: translate(-8px, 10px) rotate(-2deg); }
+            40% { transform: translate(8px, -10px) rotate(2deg); }
+            50% { transform: translate(-10px, -8px) rotate(-2deg); }
+            60% { transform: translate(10px, 8px) rotate(2deg); }
+            70% { transform: translate(-8px, 10px) rotate(-2deg); }
+            80% { transform: translate(8px, -10px) rotate(2deg); }
+            90% { transform: translate(-10px, -8px) rotate(-2deg); }
+        }
+
+        @keyframes rgbSplit {
+            0%, 100% {
+                text-shadow: 0 0 0 transparent;
+            }
+            25% {
+                text-shadow: -5px 0 #ff0000, 5px 0 #00ff00, 0 -5px #0000ff;
+            }
+            50% {
+                text-shadow: 5px 0 #ff0000, -5px 0 #00ff00, 0 5px #0000ff;
+            }
+            75% {
+                text-shadow: -5px 0 #00ffff, 5px 0 #ff00ff, 0 -5px #ffff00;
+            }
+        }
+
+        @keyframes staticNoise {
+            0%, 100% { 
+                opacity: 0.05;
+                background-position: 0 0;
+            }
+            25% { 
+                opacity: 0.15;
+                background-position: 50% 50%;
+            }
+            50% { 
+                opacity: 0.1;
+                background-position: 100% 100%;
+            }
+            75% { 
+                opacity: 0.2;
+                background-position: 25% 75%;
+            }
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { 
+                border-color: var(--primary);
+                box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            }
+            25% { 
+                border-color: #00ff00;
+                box-shadow: 0 0 50px rgba(0, 255, 0, 0.8);
+            }
+            50% { 
+                border-color: #0000ff;
+                box-shadow: 0 0 50px rgba(0, 0, 255, 0.8);
+            }
+            75% { 
+                border-color: #ffff00;
+                box-shadow: 0 0 50px rgba(255, 255, 0, 0.8);
+            }
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            display: none;
+        }
+
+        .scanlines.active {
+            display: block;
+            animation: scanlineMove 0.5s linear infinite;
+        }
+
+        @keyframes scanlineMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .static-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9997;
+            opacity: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.3'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+        }
+
+        .static-overlay.active {
+            opacity: 1;
+            animation: staticNoise 0.1s steps(4) infinite;
+        }
+
+        body.intense-hack {
+            animation: intenseShake 0.3s ease-in-out infinite;
+        }
+
+        body.intense-hack .terminal-container {
+            animation: borderPulse 0.5s ease-in-out infinite;
+        }
+
+        .hack-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 0, 0, 0.95);
+            color: white;
+            padding: 40px 60px;
+            border: 3px solid #fff;
+            border-radius: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 2rem;
+            font-weight: bold;
+            z-index: 10001;
+            display: none;
+            text-align: center;
+            box-shadow: 0 0 100px rgba(255, 0, 0, 1);
+        }
+
+        .hack-alert.active {
+            display: block;
+            animation: rgbSplit 0.2s ease-in-out infinite;
+        }
+
+        .corruption-text {
+            position: fixed;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            z-index: 9996;
+            pointer-events: none;
+            animation: corruptionFade 2s ease-out forwards;
+        }
+
+        @keyframes corruptionFade {
+            0% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(50px); }
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: var(--primary);
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
+        }
+
+        /* Enhanced hover effects */
+        .code-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), transparent, var(--primary));
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+        .code-container:hover::before {
+            opacity: 0.3;
+            animation: shimmer 3s infinite;
+        }
+
+        /* Glowing text effect */
+        .glow-text {
+            animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% {
+                text-shadow: 0 0 5px rgba(255, 0, 0, 0.5),
+                             0 0 10px rgba(255, 0, 0, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 10px rgba(255, 0, 0, 0.8),
+                             0 0 20px rgba(255, 0, 0, 0.5),
+                             0 0 30px rgba(255, 0, 0, 0.3);
+            }
+        }
+
+        /* Parallax effect */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.15) 0%, transparent 50%);
+            opacity: 0.5;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 9999;
+            transition: width 0.1s;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Card hover lift effect */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Ripple effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 0, 0, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .ripple:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Hidden Terminal */
+        .terminal-container {
+            position: fixed;
+            bottom: -500px;
+            right: 20px;
+            width: 650px;
+            height: 450px;
+            background: #0a0a0a;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            z-index: 10000;
+            transition: bottom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .terminal-container.active {
+            bottom: 20px;
+        }
+
+        .terminal-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 10px 15px;
+            border-radius: 6px 6px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: move;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .terminal-dot:hover {
+            transform: scale(1.2);
+        }
+
+        .terminal-dot.close { background: #ff5f56; }
+        .terminal-dot.minimize { background: #ffbd2e; }
+        .terminal-dot.maximize { background: #27c93f; }
+
+        .terminal-title {
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .terminal-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #000;
+            color: #0f0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .terminal-line {
+            margin-bottom: 5px;
+            word-wrap: break-word;
+        }
+
+        .terminal-prompt {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .terminal-input-line {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .terminal-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            outline: none;
+            padding: 0;
+            margin-left: 5px;
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: #0f0;
+            animation: blink-cursor 1s step-start infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink-cursor {
+            50% { opacity: 0; }
+        }
+
+        .terminal-output {
+            color: #0f0;
+        }
+
+        .terminal-error {
+            color: var(--primary);
+        }
+
+        .terminal-success {
+            color: #27c93f;
+        }
+
+        .terminal-warning {
+            color: #ffbd2e;
+        }
+
+        .terminal-toggle {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .terminal-container {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+                height: 400px;
+            }
+        }
+
+        /* Section umum */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .section-title.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Pembuka Section */
+        .pembuka {
+            background-color: rgba(26, 26, 26, 0.7);
+            text-align: center;
+        }
+
+        .pembuka-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .pembuka-content p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease 0.2s;
+        }
+
+        .pembuka-content.in-view p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Tata letak foto kiri dan teks kanan */
+        .pembuka-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .pembuka-images {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .pembuka-img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pembuka-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+
+        .pembuka-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .pembuka-content p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s ease;
+        }
+
+        .about-text.in-view p {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-text p:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .code-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.8s ease 0.4s;
+        }
+
+        .code-container.in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .dot-red { background-color: var(--primary); }
+        .dot-yellow { background-color: #ffbd2e; }
+        .dot-green { background-color: #27ca3f; }
+
+        .code-content {
+            font-family: 'Courier New', monospace;
+            color: var(--text);
+        }
+
+        .code-line {
+            margin-bottom: 5px;
+            transition: var(--transition);
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .code-line:hover {
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+
+        .code-property {
+            color: var(--accent);
+        }
+
+        .code-value {
+            color: #6a9955;
+        }
+
+        .skills-container {
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-item {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .skill-item.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+            background-color: rgba(255, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .skill-item i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        /* Projects Section */
+        .projects {
+            background-color: rgba(26, 26, 26, 0.7);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .project-card.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow);
+            border-color: var(--primary);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .project-card:hover .project-img::before {
+            transform: translateX(100%);
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: var(--text);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+
+        .tech-tag:hover {
+            background-color: rgba(255, 0, 0, 0.4);
+            transform: scale(1.05);
+        }
+
+        .project-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .project-buttons .btn {
+            flex: 1;
+            text-align: center;
+            margin: 0;
+        }
+
+        /* Penutup Section */
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info p {
+            margin-bottom: 30px;
+            color: var(--text-secondary);
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s ease;
+        }
+
+        .contact-info.in-view p {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s ease;
+        }
+
+        .contact-info.in-view .contact-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .contact-info.in-view .contact-item:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+        .contact-info.in-view .contact-item:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+        .contact-info.in-view .contact-item:nth-child(4) {
+            transition-delay: 0.3s;
+        }
+
+        .contact-item i {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            transition: var(--transition);
+        }
+
+        .contact-item:hover i {
+            transform: scale(1.1);
+            box-shadow: var(--glow);
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.8s ease 0.4s;
+        }
+
+        .contact-form.in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--secondary);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        #terminalLink:hover {
+            color: var(--accent) !important;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            transform: translateX(5px);
+        }
+
+        #terminalLink:hover i {
+            animation: pulse 0.8s ease infinite;
+        }
+
+        /* Partikel Interaktif */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        /* Responsif untuk HP */
+        @media (max-width: 768px) {
+            .pembuka-flex {
+                flex-direction: column;
+            }
+
+            .pembuka-images {
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .pembuka-img {
+                width: 45%;
+            }
+
+            .pembuka-content {
+                text-align: center;
+            }
+
+            /* Responsive for Pendahuluan & Latar Belakang */
+            #pendahuluan .about-content,
+            #latar-belakang > div > div {
+                grid-template-columns: 1fr !important;
+            }
+
+            #pendahuluan h3,
+            #latar-belakang h3 {
+                font-size: 1.5rem !important;
+            }
+
+            #pendahuluan .code-container,
+            #latar-belakang .code-container {
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Responsif */
+        @media (max-width: 992px) {
+            .avatar-container {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                margin: 40px auto;
+            }
+
+            .home-content {
+                text-align: center;
+                margin: 0 auto;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                border-top: 1px solid rgba(255, 0, 0, 0.3);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .name {
+                font-size: 2.5rem;
+            }
+
+            .typing-text {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Parallax Background -->
+    <div class="parallax-bg" id="parallaxBg"></div>
+
+    <!-- Hacking Overlay -->
+    <div class="hacking-overlay" id="hackingOverlay"></div>
+
+    <!-- Scanlines Effect -->
+    <div class="scanlines" id="scanlines"></div>
+
+    <!-- Static Noise Overlay -->
+    <div class="static-overlay" id="staticOverlay"></div>
+
+    <!-- Hack Alert -->
+    <div class="hack-alert" id="hackAlert">
+        ⚠️ SYSTEM BREACH ⚠️<br>
+        ACCESS GRANTED
+    </div>
+
+    <!-- Partikel Interaktif -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="logo">
+                <i class="fas fa-code logo-icon"></i>Porto<span>folio</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Halaman</a></li>
+                <li><a href="#biodata">Biodata</a></li>
+                <li><a href="#pendahuluan">Pendahuluan</a></li>
+                <li><a href="#latar-belakang">Latar Belakang</a></li>
+                <li><a href="#profil-iduka">Profil IDUKA</a></li>
+                <li><a href="#kompetensi">Kompetensi</a></li>
+                <li><a href="#contact">Pesan & Kesan</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="home">
+        <div class="container">
+            <div class="home-content">
+                <p class="greeting">Hello, I'm</p>
+                <h1 class="name">Raza <span>Omar Izyan</span></h1>
+                <div class="typing-text">
+                    I'm a <span id="typing"></span>
+                </div>
+                <p class="description">
+                    Seorang Cyber Security Student yang bersemangat dengan pengalaman dalam membangun aplikasi web modern dan responsif. Saya berfokus pada menciptakan pengalaman pengguna yang menarik dan solusi yang efisien.
+                </p>
+                <div class="buttons">
+                    <a href="#" class="btn">DOWNLOAD CV</a>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Avatar -->
+        <div class="avatar-container">
+            <div class="avatar" id="avatar">
+                <img src="anime.png" alt="Foto Profil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+        </div>
+        
+        <!-- Floating Icons -->
+        <div class="floating-icons" id="floating-icons"></div>
+    </section>
+
+    <!-- Biodata Section -->
+    <section id="biodata" class="about">
+        <div class="container">
+            <h2 class="section-title" id="biodata-title">Biodata</h2>
+            <div class="about-content">
+                <div class="about-text" id="about-text">
+                    <p>
+                        Saya adalah seorang Junior Cyber Security Student dengan keahlian dalam Digital Forensic,Cryptography. Saya memiliki passion untuk melakukan forensic disebuah logs/directory serta memiliki ilmu di cryptograpy.
+                    </p>
+                    <p>
+                        Dengan latar belakang pendidikan di bidang Teknik Komputer dan Jaringan serta pengalaman dalam perlombaan cyber, saya terus mengembangkan keterampilan dan pengetahuan untuk tetap relevan dengan perkembangan teknologi terbaru.
+                    </p>
+                </div>
+                <div class="code-container hover-lift" id="code-container">
+                    <div class="code-header">
+                        <div class="code-dot dot-red"></div>
+                        <div class="code-dot dot-yellow"></div>
+                        <div class="code-dot dot-green"></div>
+                    </div>
+                    <div class="code-content">
+                        <div class="code-line"><span class="code-property">const</span> developer = {</div>
+                        <div class="code-line">&nbsp;&nbsp;<span class="code-property">name</span>: <span class="code-value">"Raza Omar Izyan"</span>,</div>
+                        <div class="code-line">&nbsp;&nbsp;<span class="code-property">role</span>: <span class="code-value">"Cyber Security Student"</span>,</div>
+                        <div class="code-line">&nbsp;&nbsp;<span class="code-property">location</span>: <span class="code-value">"Malang, Indonesia"</span>,</div>
+                        <div class="code-line">&nbsp;&nbsp;<span class="code-property">skills</span>: [</div>
+                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-value">"Digital Forensic"</span>, <span class="code-value">"CryptoGraphy"</span>, <span class="code-value">"Network Administrator"</span>,</div>
+                        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-value">"Prompt Engineer"</span>, <span class="code-value">"Python"</span></div>
+                        <div class="code-line">&nbsp;&nbsp;],</div>
+                        <div class="code-line">&nbsp;&nbsp;<span class="code-property">passion</span>: <span class="code-value">"CTF Player"</span></div>
+                        <div class="code-line">};</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pendahuluan Section -->
+    <section id="pendahuluan" class="pembuka">
+        <div class="container">
+            <h2 class="section-title" id="pendahuluan-title">Pendahuluan</h2>
+            <div style="max-width: 1000px; margin: 0 auto;">
+                <!-- Welcome Message -->
+                <div style="text-align: center; margin-bottom: 50px; padding: 40px; background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(0, 0, 0, 0.3)); border-radius: 15px; border: 2px solid rgba(255, 0, 0, 0.3);">
+                    <i class="fas fa-laptop-code" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 2rem; color: var(--text); margin-bottom: 15px;">Selamat Datang! 👋</h3>
+                    <p style="font-size: 1.2rem; color: var(--text-secondary); line-height: 1.8;">
+                        Di Website Dokumentasi Praktik Kerja Lapangan (PKL)<br>
+                        <strong style="color: var(--primary);">Raza Omar Izyan</strong>
+                    </p>
+                </div>
+
+                <!-- Main Content -->
+                <div class="about-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+                    <!-- Left Column -->
+                    <div class="code-container">
+                        <div class="code-header">
+                            <div class="code-dot dot-red"></div>
+                            <div class="code-dot dot-yellow"></div>
+                            <div class="code-dot dot-green"></div>
+                            <span style="margin-left: 10px; color: var(--text-secondary); font-size: 0.9rem;">tentang_website.txt</span>
+                        </div>
+                        <div style="padding: 25px; line-height: 1.9;">
+                            <h4 style="color: var(--primary); margin-bottom: 15px; font-size: 1.3rem;">
+                                <i class="fas fa-info-circle"></i> Tentang Website Ini
+                            </h4>
+                            <p style="color: var(--text-secondary); text-align: justify; margin-bottom: 15px;">
+                                Website ini dibuat sebagai media dokumentasi lengkap kegiatan Praktik Kerja Lapangan (PKL) 
+                                yang merupakan program wajib bagi siswa SMK untuk mendapatkan pengalaman langsung di dunia industri.
+                            </p>
+                            <p style="color: var(--text-secondary); text-align: justify;">
+                                Melalui website ini, saya mendokumentasikan perjalanan, pembelajaran, dan pengalaman selama 
+                                menjalani PKL di bidang Cyber Security dan Teknologi Informasi.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="code-container">
+                        <div class="code-header">
+                            <div class="code-dot dot-red"></div>
+                            <div class="code-dot dot-yellow"></div>
+                            <div class="code-dot dot-green"></div>
+                            <span style="margin-left: 10px; color: var(--text-secondary); font-size: 0.9rem;">tujuan.txt</span>
+                        </div>
+                        <div style="padding: 25px; line-height: 1.9;">
+                            <h4 style="color: var(--primary); margin-bottom: 15px; font-size: 1.3rem;">
+                                <i class="fas fa-bullseye"></i> Tujuan Pembuatan
+                            </h4>
+                            <ul style="color: var(--text-secondary); padding-left: 20px; margin: 0;">
+                                <li style="margin-bottom: 10px;">Mendokumentasikan kegiatan PKL secara sistematis</li>
+                                <li style="margin-bottom: 10px;">Menampilkan kompetensi yang telah dikuasai</li>
+                                <li style="margin-bottom: 10px;">Berbagi pengalaman dan pembelajaran</li>
+                                <li>Memenuhi syarat laporan PKL dengan format digital</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Overview -->
+                <div style="background-color: rgba(26, 26, 26, 0.5); padding: 30px; border-radius: 10px; border: 1px solid rgba(255, 0, 0, 0.2);">
+                    <h4 style="color: var(--primary); text-align: center; margin-bottom: 30px; font-size: 1.4rem;">
+                        <i class="fas fa-list-ul"></i> Konten Website
+                    </h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div style="text-align: center; padding: 20px; background-color: rgba(255, 0, 0, 0.1); border-radius: 8px; transition: transform 0.3s;">
+                            <i class="fas fa-user" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+                            <p style="color: var(--text); font-weight: 600; margin-bottom: 5px;">Biodata</p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Informasi pribadi</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background-color: rgba(255, 0, 0, 0.1); border-radius: 8px; transition: transform 0.3s;">
+                            <i class="fas fa-book" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+                            <p style="color: var(--text); font-weight: 600; margin-bottom: 5px;">Latar Belakang</p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Konteks PKL</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background-color: rgba(255, 0, 0, 0.1); border-radius: 8px; transition: transform 0.3s;">
+                            <i class="fas fa-building" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+                            <p style="color: var(--text); font-weight: 600; margin-bottom: 5px;">Profil IDUKA</p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Tempat PKL</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background-color: rgba(255, 0, 0, 0.1); border-radius: 8px; transition: transform 0.3s;">
+                            <i class="fas fa-certificate" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+                            <p style="color: var(--text); font-weight: 600; margin-bottom: 5px;">Kompetensi</p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Skills yang dikuasai</p>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background-color: rgba(255, 0, 0, 0.1); border-radius: 8px; transition: transform 0.3s;">
+                            <i class="fas fa-comments" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+                            <p style="color: var(--text); font-weight: 600; margin-bottom: 5px;">Pesan & Kesan</p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Refleksi PKL</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latar Belakang Section -->
+    <section id="latar-belakang" class="about">
+        <div class="container">
+            <h2 class="section-title" id="latarbelakang-title">Latar Belakang</h2>
+            <div style="max-width: 1000px; margin: 0 auto;">
+                
+                <!-- Introduction Card -->
+                <div class="code-container" style="margin-bottom: 40px;">
+                    <div class="code-header">
+                        <div class="code-dot dot-red"></div>
+                        <div class="code-dot dot-yellow"></div>
+                        <div class="code-dot dot-green"></div>
+                        <span style="margin-left: 10px; color: var(--text-secondary); font-size: 0.9rem;">pkl_overview.md</span>
+                    </div>
+                    <div style="padding: 30px; line-height: 1.9;">
+                        <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">
+                            <i class="fas fa-graduation-cap"></i> Tentang Praktik Kerja Lapangan (PKL)
+                        </h3>
+                        <p style="color: var(--text-secondary); text-align: justify; margin-bottom: 15px; font-size: 1.1rem;">
+                            Praktik Kerja Lapangan (PKL) merupakan salah satu program pendidikan yang diterapkan di Sekolah Menengah Kejuruan (SMK) 
+                            untuk memberikan pengalaman nyata kepada siswa dalam dunia kerja profesional. Program ini bertujuan untuk menjembatani 
+                            kesenjangan antara teori yang dipelajari di kelas dengan praktik di lapangan kerja yang sesungguhnya.
+                        </p>
+                        <p style="color: var(--text-secondary); text-align: justify; font-size: 1.1rem;">
+                            Berdasarkan <strong style="color: var(--primary);">Peraturan Menteri Pendidikan dan Kebudayaan</strong>, PKL merupakan 
+                            kegiatan pendidikan yang wajib dilaksanakan oleh peserta didik SMK sebagai bagian dari kurikulum yang berlaku, 
+                            dengan durasi minimal 3-6 bulan atau disesuaikan dengan kebijakan sekolah.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tujuan PKL -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+                    <div class="code-container">
+                        <div class="code-header">
+                            <div class="code-dot dot-red"></div>
+                            <div class="code-dot dot-yellow"></div>
+                            <div class="code-dot dot-green"></div>
+                            <span style="margin-left: 10px; color: var(--text-secondary); font-size: 0.9rem;">tujuan_pkl.txt</span>
+                        </div>
+                        <div style="padding: 25px;">
+                            <h4 style="color: var(--primary); margin-bottom: 20px; font-size: 1.3rem;">
+                                <i class="fas fa-bullseye"></i> Tujuan PKL
+                            </h4>
+                            <ul style="color: var(--text-secondary); line-height: 2; padding-left: 20px;">
+                                <li>Mengaplikasikan teori ke praktik nyata</li>
+                                <li>Mengembangkan kompetensi teknis</li>
+                                <li>Memahami budaya kerja industri</li>
+                                <li>Meningkatkan soft skills</li>
+                                <li>Membangun networking profesional</li>
+                                <li>Mempersiapkan mental kerja</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <div class="code-dot dot-red"></div>
+                            <div class="code-dot dot-yellow"></div>
+                            <div class="code-dot dot-green"></div>
+                            <span style="margin-left: 10px; color: var(--text-secondary); font-size: 0.9rem;">manfaat_pkl.txt</span>
+                        </div>
+                        <div style="padding: 25px;">
+                            <h4 style="color: var(--primary); margin-bottom: 20px; font-size: 1.3rem;">
+                                <i class="fas fa-star"></i> Manfaat PKL
+                            </h4>
+                            <ul style="color: var(--text-secondary); line-height: 2; padding-left: 20px;">
+                                <li>Pengalaman kerja real-world</li>
+                                <li>Peningkatan keterampilan praktis</li>
+                                <li>Pemahaman standar industri</li>
+                                <li>Pengembangan profesionalisme</li>
+                                <li>Portfolio untuk karir</li>
+                                <li>Koneksi dengan praktisi</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Context TKJ & Cyber Security -->
+                <div class="code-container" style="margin-bottom: 40px;">
+                    <div class="code-header">
+                        <div class="code-dot dot-red"></div>
+                        <div class="code-dot dot-yellow"></div>
+                        <div class="code-dot dot-green"></div>
+                        <span style="margin-left: 10px; color: var(--text-secondary); font-size: 0.9rem;">tkj_context.txt</span>
+                    </div>
+                    <div style="padding: 30px; line-height: 1.9;">
+                        <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">
+                            <i class="fas fa-shield-alt"></i> PKL di Bidang Cyber Security & TKJ
+                        </h3>
+                        <p style="color: var(--text-secondary); text-align: justify; margin-bottom: 15px; font-size: 1.05rem;">
+                            Sebagai siswa jurusan <strong style="color: var(--primary);">Teknik Komputer dan Jaringan (TKJ)</strong> 
+                            dengan fokus pada <strong style="color: var(--primary);">Cyber Security</strong>, PKL memberikan kesempatan 
+                            emas untuk menerapkan pengetahuan tentang:
+                        </p>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px;">
+                            <div style="background-color: rgba(255, 0, 0, 0.05); padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary);">
+                                <strong style="color: var(--primary);">🔒 Keamanan Jaringan</strong>
+                                <p style="color: var(--text-secondary); margin-top: 5px; font-size: 0.95rem;">Implementasi security protocols dan firewall configuration</p>
+                            </div>
+                            <div style="background-color: rgba(255, 0, 0, 0.05); padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary);">
+                                <strong style="color: var(--primary);">🔍 Digital Forensic</strong>
+                                <p style="color: var(--text-secondary); margin-top: 5px; font-size: 0.95rem;">Analisis log, investigasi insiden, dan evidence collection</p>
+                            </div>
+                            <div style="background-color: rgba(255, 0, 0, 0.05); padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary);">
+                                <strong style="color: var(--primary);">💻 Sistem Administrasi</strong>
+                                <p style="color: var(--text-secondary); margin-top: 5px; font-size: 0.95rem;">Server management, network monitoring, dan troubleshooting</p>
+                            </div>
+                            <div style="background-color: rgba(255, 0, 0, 0.05); padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary);">
+                                <strong style="color: var(--primary);">🛡️ Penetration Testing</strong>
+                                <p style="color: var(--text-secondary); margin-top: 5px; font-size: 0.95rem;">Vulnerability assessment dan security auditing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Impact & Importance -->
+                <div style="background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(0, 0, 0, 0.3)); padding: 35px; border-radius: 15px; border: 2px solid rgba(255, 0, 0, 0.3); text-align: center;">
+                    <i class="fas fa-quote-left" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <p style="color: var(--text); font-size: 1.3rem; font-style: italic; line-height: 1.8; margin-bottom: 20px;">
+                        "PKL bukan hanya tentang memenuhi syarat kelulusan, tetapi tentang membangun fondasi karir 
+                        di era digital yang penuh dengan tantangan keamanan siber."
+                    </p>
+                    <div style="height: 2px; width: 100px; background-color: var(--primary); margin: 20px auto;"></div>
+                    <p style="color: var(--text-secondary); font-size: 1.05rem;">
+                        Melalui PKL, saya tidak hanya belajar teknis, tetapi juga memahami tanggung jawab besar 
+                        dalam menjaga keamanan informasi di dunia yang semakin terhubung.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Profil IDUKA Section -->
+    <section id="profil-iduka" class="pembuka">
+        <div class="container">
+            <div class="pembuka-flex">
+                <!-- Foto di kiri -->
+                <div class="pembuka-images">
+                    <img src="Dokumentasi 1.jpeg" alt="Kegiatan TEFA" class="pembuka-img">
+                    <img src="Dokumentasi 2.jpeg" alt="Siswa PKL" class="pembuka-img">
+                </div>
+
+                <!-- Teks di kanan -->
+                <div class="pembuka-content" id="profil-content">
+                    <h2 class="section-title" id="profil-title">Profil IDUKA</h2>
+                    <p>
+                        SMKN 8 Malang menerapkan sistem pembelajaran vokasi yang mengedepankan kolaborasi dengan dunia industri melalui program TEFA. 
+                        Dalam TEFA, sekolah menyediakan fasilitas dan lingkungan pembelajaran yang menyerupai kondisi kerja di industri, 
+                        agar siswa bisa terbiasa dengan standar mutu dan praktik nyata lapangan. 
+                        Selain itu, PKL sebagai bagian dari TEFA memberikan siswa pengalaman langsung bekerja di perusahaan mitra 
+                        sesuai jurusan mereka, untuk mengasah kemampuan teknis serta soft skills.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kompetensi Section -->
+    <section id="kompetensi" class="projects">
+        <div class="container">
+            <h2 class="section-title" id="kompetensi-title">Kompetensi</h2>
+            <div class="skills-container" style="margin-top: 20px;">
+                <p style="text-align: center; font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    Berikut adalah kompetensi dan keterampilan teknis yang telah saya kuasai melalui pembelajaran di sekolah dan pengalaman praktik:
+                </p>
+                <div class="skills-grid" id="kompetensi-grid">
+                    <div class="skill-item">
+                        <i class="fas fa-bug"></i>
+                        <p>Bug Bounty</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa fa-search"></i>
+                        <p>Digital Forensic</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-solid fa-lock-open"></i>
+                        <p>CryptoGraphy</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-brands fa-linux"></i>
+                        <p>Kali Linux</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-solid fa-flag"></i>
+                        <p>CTF</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-python"></i>
+                        <p>Python</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <p>Security Research</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-solid fa-syringe"></i>
+                        <p>SQL Injection</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-solid fa-network-wired"></i>
+                        <p>Network Security</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-solid fa-terminal"></i>
+                        <p>Penetration Testing</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-brands fa-git-alt"></i>
+                        <p>Git & GitHub</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fa-solid fa-code"></i>
+                        <p>Web Development</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pesan & Kesan Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" id="contact-title">Pesan & Kesan</h2>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <!-- Kesan Section -->
+                <div class="code-container" id="kesan-container" style="margin-bottom: 40px;">
+                    <div class="code-header">
+                        <div class="code-dot dot-red"></div>
+                        <div class="code-dot dot-yellow"></div>
+                        <div class="code-dot dot-green"></div>
+                        <span style="margin-left: 10px; color: var(--text-secondary); font-size: 0.9rem;">kesan_pkl.txt</span>
+                    </div>
+                    <div style="padding: 20px; line-height: 1.8;">
+                        <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">
+                            <i class="fas fa-heart" style="margin-right: 10px;"></i>Kesan
+                        </h3>
+                        <p style="color: var(--text-secondary); text-align: justify; margin-bottom: 15px;">
+                            Praktik Kerja Lapangan (PKL) merupakan pengalaman yang sangat berharga bagi saya. Melalui program ini, 
+                            saya mendapatkan kesempatan untuk menerapkan ilmu yang telah dipelajari di sekolah ke dalam dunia kerja nyata. 
+                            Lingkungan kerja yang profesional dan pembimbing yang berpengalaman memberikan banyak pembelajaran berharga.
+                        </p>
+                        <p style="color: var(--text-secondary); text-align: justify; margin-bottom: 15px;">
+                            Selama PKL, saya merasakan betapa pentingnya sikap profesional, kedisiplinan, dan kemampuan beradaptasi 
+                            dengan cepat terhadap teknologi baru. Setiap tantangan yang dihadapi menjadi pelajaran yang memperkaya 
+                            pemahaman saya tentang dunia Cyber Security dan teknologi informasi.
+                        </p>
+                        <p style="color: var(--text-secondary); text-align: justify;">
+                            Pengalaman ini juga membuka wawasan saya tentang pentingnya kerja sama tim, komunikasi yang efektif, 
+                            dan continuous learning dalam menghadapi perkembangan teknologi yang begitu cepat. Saya merasa lebih 
+                            siap dan percaya diri untuk terjun ke dunia kerja setelah menyelesaikan program ini.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pesan Section -->
+                <div class="code-container" id="pesan-container">
+                    <div class="code-header">
+                        <div class="code-dot dot-red"></div>
+                        <div class="code-dot dot-yellow"></div>
+                        <div class="code-dot dot-green"></div>
+                        <span style="margin-left: 10px; color: var(--text-secondary); font-size: 0.9rem;">pesan_pkl.txt</span>
+                    </div>
+                    <div style="padding: 20px; line-height: 1.8;">
+                        <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">
+                            <i class="fas fa-comment-dots" style="margin-right: 10px;"></i>Pesan
+                        </h3>
+                        <p style="color: var(--text-secondary); text-align: justify; margin-bottom: 15px;">
+                            <strong style="color: var(--primary);">Untuk Sekolah:</strong> Terima kasih atas kesempatan yang diberikan 
+                            untuk melaksanakan PKL. Program ini sangat membantu dalam mempersiapkan siswa menghadapi dunia kerja. 
+                            Semoga ke depannya dapat terus meningkatkan kerja sama dengan industri untuk memberikan pengalaman 
+                            yang lebih baik bagi siswa-siswa selanjutnya.
+                        </p>
+                        <p style="color: var(--text-secondary); text-align: justify; margin-bottom: 15px;">
+                            <strong style="color: var(--primary);">Untuk Tempat PKL:</strong> Terima kasih atas bimbingan, 
+                            kesabaran, dan ilmu yang telah diberikan selama PKL. Lingkungan kerja yang kondusif dan profesional 
+                            sangat membantu saya dalam proses pembelajaran. Semoga terus berkembang dan sukses.
+                        </p>
+                        <p style="color: var(--text-secondary); text-align: justify; margin-bottom: 15px;">
+                            <strong style="color: var(--primary);">Untuk Teman-teman PKL:</strong> Mari terus belajar dan berkembang 
+                            bersama. Pengalaman PKL ini adalah awal dari perjalanan karir kita. Tetap semangat dalam mengejar 
+                            impian dan jangan pernah berhenti berinovasi.
+                        </p>
+                        <p style="color: var(--text-secondary); text-align: justify;">
+                            <strong style="color: var(--primary);">Untuk Diri Sendiri:</strong> Terus tingkatkan kemampuan, 
+                            jangan pernah puas dengan pencapaian saat ini. Dunia teknologi terus berkembang, dan kita harus 
+                            terus belajar untuk tetap relevan. Jadikan pengalaman PKL ini sebagai fondasi untuk meraih 
+                            kesuksesan di masa depan.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Closing Quote -->
+                <div style="text-align: center; margin-top: 50px; padding: 30px; background-color: rgba(255, 0, 0, 0.05); border-radius: 10px; border: 1px solid rgba(255, 0, 0, 0.2);">
+                    <i class="fas fa-quote-left" style="color: var(--primary); font-size: 2rem; margin-bottom: 15px;"></i>
+                    <p style="font-size: 1.2rem; font-style: italic; color: var(--text); margin: 20px 0; line-height: 1.8;">
+                        "The only way to do great work is to love what you do."
+                    </p>
+                    <p style="color: var(--primary); font-weight: 600;">- Steve Jobs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hidden Terminal -->
+    <div class="terminal-toggle" id="terminalToggle" title="Open Terminal (Ctrl+;)">
+        <i class="fas fa-terminal"></i>
+    </div>
+
+    <div class="terminal-container" id="terminalContainer">
+        <div class="terminal-header" id="terminalHeader">
+            <div class="terminal-dots">
+                <div class="terminal-dot close" id="terminalClose" title="Close"></div>
+                <div class="terminal-dot minimize" id="terminalMinimize" title="Minimize"></div>
+                <div class="terminal-dot maximize" id="terminalMaximize" title="Maximize"></div>
+            </div>
+            <div class="terminal-title">
+                <i class="fas fa-lock"></i> CyberSec Terminal v1.0
+            </div>
+            <div style="width: 80px;"></div>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+            <div class="terminal-line terminal-success">
+                ╔═══════════════════════════════════════════════════════════════╗
+            </div>
+            <div class="terminal-line terminal-success">
+                ║  Welcome to CyberSec Terminal - Raza Omar Izyan              ║
+            </div>
+            <div class="terminal-line terminal-success">
+                ║  Type 'help' to see available commands                       ║
+            </div>
+            <div class="terminal-line terminal-success">
+                ╚═══════════════════════════════════════════════════════════════╝
+            </div>
+            <div class="terminal-line"></div>
+            <div class="terminal-input-line">
+                <span class="terminal-prompt">guest@pkl:~$</span>
+                <input type="text" class="terminal-input" id="terminalInput" autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Raza Omar Izyan. All Rights Reserved.</p>
+            <p style="font-size: 0.9rem; margin-top: 15px;">
+                <a href="#" id="terminalLink" style="color: var(--primary); text-decoration: none; font-weight: 600; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-terminal"></i>
+                    <span>Open Terminal</span>
+                    <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i>
+                </a>
+            </p>
+            <p style="font-size: 0.75rem; margin-top: 8px; color: var(--text-secondary); opacity: 0.7;">
+                Developer Mode: <code style="background: rgba(255,0,0,0.1); padding: 2px 6px; border-radius: 3px; color: var(--primary);">Ctrl + ;</code>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Typing Effect
+        const typingElement = document.getElementById('typing');
+        const roles = ['Cyber Security Student', 'CTF Player', 'Problem Solver'];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+
+        function type() {
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                typingElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+            }
+            
+            if (!isDeleting && charIndex === currentRole.length) {
+                isDeleting = true;
+                typingSpeed = 1000; // Jeda sebelum menghapus
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typingSpeed = 500; // Jeda sebelum mengetik role berikutnya
+            }
+            
+            setTimeout(type, typingSpeed);
+        }
+
+        // Panggil fungsi typing setelah halaman dimuat
+        document.addEventListener('DOMContentLoaded', type);
+
+        // Floating Icons
+        const floatingIconsContainer = document.getElementById('floating-icons');
+        const icons = ['fab fa-html5', 'fab fa-css3-alt', 'fab fa-js', 'fab fa-react', 'fab fa-python', 'fab fa-node-js', 'fab fa-git-alt', 'fas fa-database'];
+        
+        // Buat floating icons
+        for (let i = 0; i < 15; i++) {
+            const icon = document.createElement('i');
+            const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+            icon.className = `floating-icon ${randomIcon}`;
+            
+            // Posisi acak
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            
+            // Animasi acak
+            const duration = 20 + Math.random() * 20;
+            const delay = Math.random() * 5;
+            
+            icon.style.left = `${posX}%`;
+            icon.style.top = `${posY}%`;
+            icon.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+            
+            floatingIconsContainer.appendChild(icon);
+            
+            // Efek hover
+            icon.addEventListener('mouseover', function() {
+                this.style.color = 'rgba(255, 0, 0, 0.7)';
+                this.style.transform = 'scale(1.5)';
+                this.style.animationDuration = '5s';
+                this.style.textShadow = '0 0 10px rgba(255, 0, 0, 0.8)';
+            });
+            
+            icon.addEventListener('mouseout', function() {
+                this.style.color = 'rgba(255, 0, 0, 0.2)';
+                this.style.transform = 'scale(1)';
+                this.style.animationDuration = `${duration}s`;
+                this.style.textShadow = 'none';
+            });
+            
+            // Klik untuk menghapus ikon
+            icon.addEventListener('click', function() {
+                this.style.opacity = '0';
+                this.style.transform = 'scale(0)';
+                setTimeout(() => {
+                    this.remove();
+                }, 500);
+            });
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            this.classList.toggle('fa-times');
+        });
+
+        // Smooth Scrolling handled by enhanced animations below
+
+        // Navbar Background Change on Scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+                navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Animasi saat scroll (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    
+                    // Jika ini adalah grid kompetensi, animasi setiap item dengan delay
+                    if (entry.target.id === 'kompetensi-grid') {
+                        const skillItems = entry.target.querySelectorAll('.skill-item');
+                        skillItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('in-view');
+                            }, index * 100);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Amati elemen yang perlu dianimasikan saat scroll
+        const elementsToObserve = [
+            document.getElementById('biodata-title'),
+            document.getElementById('about-text'),
+            document.getElementById('code-container'),
+            document.getElementById('pendahuluan-title'),
+            document.getElementById('latarbelakang-title'),
+            document.getElementById('profil-title'),
+            document.getElementById('profil-content'),
+            document.getElementById('kompetensi-title'),
+            document.getElementById('kompetensi-grid'),
+            document.getElementById('contact-title'),
+            document.getElementById('kesan-container'),
+            document.getElementById('pesan-container')
+        ];
+
+        elementsToObserve.forEach(element => {
+            if (element) observer.observe(element);
+        });
+
+        // Partikel Interaktif
+        const particlesContainer = document.getElementById('particles');
+        
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Posisi acak
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            
+            // Ukuran acak
+            const size = Math.random() * 4 + 1;
+            
+            // Durasi animasi acak
+            const duration = Math.random() * 20 + 10;
+            
+            particle.style.left = `${posX}%`;
+            particle.style.top = `${posY}%`;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.animation = `float ${duration}s linear infinite`;
+            
+            particlesContainer.appendChild(particle);
+            
+            // Hapus partikel setelah selesai animasi
+            setTimeout(() => {
+                particle.remove();
+            }, duration * 1000);
+        }
+        
+        // Buat partikel secara berkala
+        setInterval(createParticle, 200);
+        
+        // Buat partikel saat kursor bergerak
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.7) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                particle.style.left = `${e.clientX}px`;
+                particle.style.top = `${e.clientY}px`;
+                particle.style.width = '3px';
+                particle.style.height = '3px';
+                particle.style.animation = `float 5s linear forwards`;
+                
+                particlesContainer.appendChild(particle);
+                
+                // Hapus partikel setelah selesai animasi
+                setTimeout(() => {
+                    particle.remove();
+                }, 5000);
+            }
+        });
+
+        // Interaksi dengan avatar
+        const avatar = document.getElementById('avatar');
+        let avatarClickCount = 0;
+        
+        avatar.addEventListener('click', function() {
+            avatarClickCount++;
+            
+            if (avatarClickCount === 5) {
+                // Easter egg setelah 5 klik
+                this.innerHTML = '<i class="fas fa-fire" style="font-size: 5rem; color: var(--text);"></i>';
+                this.style.background = 'linear-gradient(145deg, #ff8c00, #ff0000)';
+                this.style.boxShadow = '0 0 70px rgba(255, 140, 0, 0.7)';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<img src="anime.png" alt="Foto Profil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">';
+                    this.style.background = 'linear-gradient(145deg, var(--primary), var(--primary-dark))';
+                    this.style.boxShadow = '0 0 50px rgba(255, 0, 0, 0.5)';
+                    avatarClickCount = 0;
+                }, 3000);
+            }
+        });
+
+        // Efek ketikan pada kode
+        const codeLines = document.querySelectorAll('.code-line');
+        codeLines.forEach((line, index) => {
+            line.style.animationDelay = `${index * 0.2}s`;
+        });
+
+        // ===== ENHANCED ANIMATIONS & EFFECTS =====
+
+        // Progress Bar
+        const progressBar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercentage = (scrollTop / scrollHeight) * 100;
+            progressBar.style.width = scrollPercentage + '%';
+        });
+
+        // Scroll Indicator - Hide when scrolled
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                scrollIndicator.style.opacity = '0';
+                scrollIndicator.style.pointerEvents = 'none';
+            } else {
+                scrollIndicator.style.opacity = '1';
+                scrollIndicator.style.pointerEvents = 'auto';
+            }
+        });
+
+        // Scroll Indicator Click
+        scrollIndicator.addEventListener('click', () => {
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
+        });
+
+        // Parallax Effect
+        const parallaxBg = document.getElementById('parallaxBg');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.pageYOffset;
+            parallaxBg.style.transform = `translateY(${scrollY * 0.5}px)`;
+        });
+
+        // Add stagger animation to skill items
+        const skillItems = document.querySelectorAll('.skill-item');
+        skillItems.forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Add ripple effect to buttons
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(btn => {
+            btn.classList.add('ripple');
+            
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple-effect');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Enhanced scroll reveal with different animations
+        const revealElements = document.querySelectorAll('.code-container, .skill-item, .pembuka-img');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        revealElements.forEach(el => {
+            el.style.opacity = '0';
+            revealObserver.observe(el);
+        });
+
+        // Smooth scroll for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                    mobileMenu.classList.remove('fa-times');
+                }
+            });
+        });
+
+        // Add pulse animation to primary headings
+        const sectionTitles = document.querySelectorAll('.section-title');
+        sectionTitles.forEach(title => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.8s ease, pulse 2s ease 0.8s';
+                    }
+                });
+            }, { threshold: 0.5 });
+            observer.observe(title);
+        });
+
+        // Magnetic effect for social links
+        const socialLinks = document.querySelectorAll('.social-links a');
+        socialLinks.forEach(link => {
+            link.addEventListener('mousemove', (e) => {
+                const rect = link.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                link.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.2)`;
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = 'translate(0, 0) scale(1)';
+            });
+        });
+
+        // Text typing effect enhancement (using existing typingElement variable)
+        if (typingElement) {
+            typingElement.parentElement.style.animation = 'fadeInUp 1s ease 0.9s forwards, glow-pulse 3s ease 2s infinite';
+        }
+
+        // Add hover effect to content overview cards
+        document.querySelectorAll('#pendahuluan [style*="grid-template-columns"] > div').forEach(card => {
+            card.classList.add('hover-lift');
+            card.style.cursor = 'pointer';
+        });
+
+        // Lazy load images with fade in
+        const images = document.querySelectorAll('img');
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.style.opacity = '0';
+                    img.style.transition = 'opacity 0.8s ease';
+                    
+                    img.onload = () => {
+                        img.style.opacity = '1';
+                    };
+                    
+                    if (img.complete) {
+                        img.style.opacity = '1';
+                    }
+                    
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => imageObserver.observe(img));
+
+        // Navbar active link highlighting
+        const sections = document.querySelectorAll('section[id]');
+        const allNavLinks = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            allNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Add CSS for active nav link
+        const style = document.createElement('style');
+        style.textContent = `
+            .nav-links a.active {
+                color: var(--primary);
+                font-weight: 700;
+            }
+            .nav-links a.active::after {
+                width: 100%;
+            }
+            .ripple-effect {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                animation: ripple-animation 0.6s ease-out;
+                pointer-events: none;
+            }
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        console.log('🎨 Enhanced animations loaded successfully!');
+
+        // ===== HIDDEN TERMINAL FUNCTIONALITY =====
+        
+        const terminalContainer = document.getElementById('terminalContainer');
+        const terminalToggle = document.getElementById('terminalToggle');
+        const terminalClose = document.getElementById('terminalClose');
+        const terminalMinimize = document.getElementById('terminalMinimize');
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalBody = document.getElementById('terminalBody');
+        
+        let commandHistory = [];
+        let historyIndex = -1;
+        let isTerminalOpen = false;
+        let isDevMode = false;
+        let devModeAttempts = 0;
+        const DEV_PASSWORD = 'cyberdev2025'; // Password untuk dev mode
+
+        // Terminal Commands Database
+        const commands = {
+            help: () => {
+                let helpText = `<div class="terminal-success">Available Commands:</div>
+                <div class="terminal-output">  help       - Show this help message</div>
+                <div class="terminal-output">  whoami     - Display current user information</div>
+                <div class="terminal-output">  about      - About this website</div>
+                <div class="terminal-output">  skills     - List my technical skills</div>
+                <div class="terminal-output">  contact    - Show contact information</div>
+                <div class="terminal-output">  clear      - Clear terminal screen</div>
+                <div class="terminal-output">  date       - Display current date and time</div>
+                <div class="terminal-output">  ls         - List directory contents</div>
+                <div class="terminal-output">  cat [file] - Display file contents</div>
+                <div class="terminal-output">  banner     - Display welcome banner</div>
+                <div class="terminal-output">  secret     - ??? Try it and find out</div>`;
+                
+                if (isDevMode) {
+                    helpText += `
+                <div class="terminal-line"></div>
+                <div class="terminal-warning">🔐 Developer Mode Commands:</div>
+                <div class="terminal-output">  inspect    - Inspect website statistics</div>
+                <div class="terminal-output">  debug      - Show debug information</div>
+                <div class="terminal-output">  sysinfo    - Display system information</div>
+                <div class="terminal-output">  matrix     - Enter the Matrix...</div>
+                <div class="terminal-output">  hack       - Simulate hacking sequence</div>
+                <div class="terminal-output">  theme      - Toggle terminal theme</div>
+                <div class="terminal-output">  exit-dev   - Exit developer mode</div>`;
+                } else {
+                    helpText += `
+                <div class="terminal-line"></div>
+                <div class="terminal-output" style="opacity: 0.6;">💡 Hint: Type 'sudo dev' to unlock developer mode</div>`;
+                }
+                
+                return helpText;
+            },
+            whoami: () => {
+                return `<div class="terminal-success">User Information:</div>
+                <div class="terminal-output">Name: Raza Omar Izyan</div>
+                <div class="terminal-output">Role: Cyber Security Student</div>
+                <div class="terminal-output">School: SMKN 8 Malang</div>
+                <div class="terminal-output">Focus: Digital Forensic & Cryptography</div>
+                <div class="terminal-output">Status: PKL Student</div>`;
+            },
+            about: () => {
+                return `<div class="terminal-success">About This Website:</div>
+                <div class="terminal-output">This is a documentation website for Praktik Kerja Lapangan (PKL)</div>
+                <div class="terminal-output">Created by: Raza Omar Izyan</div>
+                <div class="terminal-output">Purpose: Documenting PKL experience and showcasing skills</div>
+                <div class="terminal-output">Theme: Cyber Security & Technology</div>`;
+            },
+            skills: () => {
+                return `<div class="terminal-success">Technical Skills:</div>
+                <div class="terminal-output">🐛 Bug Bounty</div>
+                <div class="terminal-output">🔍 Digital Forensic</div>
+                <div class="terminal-output">🔐 Cryptography</div>
+                <div class="terminal-output">🐧 Kali Linux</div>
+                <div class="terminal-output">🚩 CTF Player</div>
+                <div class="terminal-output">🐍 Python Programming</div>
+                <div class="terminal-output">🛡️ Security Research</div>
+                <div class="terminal-output">💉 SQL Injection</div>`;
+            },
+            contact: () => {
+                return `<div class="terminal-success">Contact Information:</div>
+                <div class="terminal-output">📧 Email: Raza@example.com</div>
+                <div class="terminal-output">📱 Phone: +62 812 3456 7890</div>
+                <div class="terminal-output">📍 Location: Malang, Indonesia</div>
+                <div class="terminal-output">🔗 GitHub: github.com/razaomar</div>`;
+            },
+            date: () => {
+                const now = new Date();
+                return `<div class="terminal-output">${now.toLocaleString('id-ID', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                })}</div>`;
+            },
+            ls: () => {
+                return `<div class="terminal-output">drwxr-xr-x  biodata/</div>
+                <div class="terminal-output">drwxr-xr-x  pendahuluan/</div>
+                <div class="terminal-output">drwxr-xr-x  latar-belakang/</div>
+                <div class="terminal-output">drwxr-xr-x  profil-iduka/</div>
+                <div class="terminal-output">drwxr-xr-x  kompetensi/</div>
+                <div class="terminal-output">-rw-r--r--  README.md</div>
+                <div class="terminal-output">-rw-r--r--  skills.txt</div>
+                <div class="terminal-output">-rw-r--r--  secret.txt</div>`;
+            },
+            cat: (args) => {
+                const file = args[1];
+                const files = {
+                    'README.md': `# PKL Documentation Website\n\nWelcome to my PKL portfolio!\nThis site documents my journey as a Cyber Security student.`,
+                    'skills.txt': `Digital Forensic | Cryptography | CTF | Python | Penetration Testing`,
+                    'secret.txt': `🎉 Congratulations! You found the secret!\n🔐 Easter egg unlocked: "The best hackers are the curious ones"\n💎 Keep exploring and learning!`
+                };
+                
+                if (!file) {
+                    return `<div class="terminal-error">cat: missing file operand</div>
+                    <div class="terminal-output">Try 'cat [filename]' - Available: README.md, skills.txt, secret.txt</div>`;
+                }
+                
+                if (files[file]) {
+                    return `<div class="terminal-output">${files[file].replace(/\n/g, '<br>')}</div>`;
+                } else {
+                    return `<div class="terminal-error">cat: ${file}: No such file or directory</div>`;
+                }
+            },
+            banner: () => {
+                return `<div class="terminal-success">
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║     ██████╗██╗   ██╗██████╗ ███████╗██████╗ ███████╗███████╗ ║
+║    ██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗██╔════╝██╔════╝ ║
+║    ██║      ╚████╔╝ ██████╔╝█████╗  ██████╔╝███████╗█████╗   ║
+║    ██║       ╚██╔╝  ██╔══██╗██╔══╝  ██╔══██╗╚════██║██╔══╝   ║
+║    ╚██████╗   ██║   ██████╔╝███████╗██║  ██║███████║███████╗ ║
+║     ╚═════╝   ╚═╝   ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝ ║
+║                                                               ║
+║              Raza Omar Izyan - Cyber Security Student        ║
+║                        SMKN 8 Malang                         ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+</div>`;
+            },
+            secret: () => {
+                return `<div class="terminal-warning">🔓 Access Granted!</div>
+                <div class="terminal-success">You discovered the hidden command!</div>
+                <div class="terminal-output">🎯 Achievement Unlocked: "Curious Explorer"</div>
+                <div class="terminal-output">💡 Fun Fact: This terminal is built with vanilla JavaScript</div>
+                <div class="terminal-output">🚀 Keep exploring and stay curious!</div>`;
+            },
+            sudo: (args) => {
+                if (args[1] === 'dev') {
+                    if (isDevMode) {
+                        return `<div class="terminal-warning">Already in developer mode!</div>`;
+                    }
+                    
+                    return `<div class="terminal-warning">[sudo] password for developer mode:</div>
+                    <div class="terminal-output">Type the password and press Enter</div>
+                    <div class="terminal-output" style="opacity: 0.5;">Hint: The password is in the source code 😉</div>
+                    <div class="terminal-line"></div>
+                    <div class="terminal-output">Use command: auth [password]</div>`;
+                }
+                return `<div class="terminal-error">sudo: ${args[1]}: command not found</div>`;
+            },
+            auth: (args) => {
+                const password = args[1];
+                if (!password) {
+                    return `<div class="terminal-error">auth: missing password</div>`;
+                }
+                
+                if (password === DEV_PASSWORD) {
+                    isDevMode = true;
+                    devModeAttempts = 0;
+                    updateTerminalTheme(true);
+                    return `<div class="terminal-success">
+╔═══════════════════════════════════════════════╗
+║   🔐 DEVELOPER MODE ACTIVATED 🔐              ║
+║                                               ║
+║   Access Level: FULL                          ║
+║   User: root@cybersec                         ║
+║   Status: AUTHENTICATED                       ║
+║                                               ║
+║   Type 'help' to see developer commands       ║
+╚═══════════════════════════════════════════════╝
+</div>`;
+                } else {
+                    devModeAttempts++;
+                    if (devModeAttempts >= 3) {
+                        return `<div class="terminal-error">⚠️  Access Denied! Too many failed attempts.</div>
+                        <div class="terminal-output">Terminal will be locked for security reasons.</div>
+                        <div class="terminal-output">Just kidding! Try again 😄</div>`;
+                    }
+                    return `<div class="terminal-error">❌ Authentication failed! (${devModeAttempts}/3)</div>`;
+                }
+            },
+            inspect: () => {
+                if (!isDevMode) return devModeOnly();
+                
+                const sections = document.querySelectorAll('section').length;
+                const images = document.querySelectorAll('img').length;
+                const links = document.querySelectorAll('a').length;
+                
+                return `<div class="terminal-success">📊 Website Statistics:</div>
+                <div class="terminal-output">Total Sections: ${sections}</div>
+                <div class="terminal-output">Total Images: ${images}</div>
+                <div class="terminal-output">Total Links: ${links}</div>
+                <div class="terminal-output">Screen Resolution: ${window.innerWidth}x${window.innerHeight}</div>
+                <div class="terminal-output">Scroll Position: ${Math.round(window.scrollY)}px</div>
+                <div class="terminal-output">Page Height: ${document.documentElement.scrollHeight}px</div>`;
+            },
+            debug: () => {
+                if (!isDevMode) return devModeOnly();
+                
+                return `<div class="terminal-success">🐛 Debug Information:</div>
+                <div class="terminal-output">Browser: ${navigator.userAgent.split(' ').pop()}</div>
+                <div class="terminal-output">Platform: ${navigator.platform}</div>
+                <div class="terminal-output">Language: ${navigator.language}</div>
+                <div class="terminal-output">Online: ${navigator.onLine ? 'Yes' : 'No'}</div>
+                <div class="terminal-output">Cookies Enabled: ${navigator.cookieEnabled ? 'Yes' : 'No'}</div>
+                <div class="terminal-output">Dev Mode: ${isDevMode ? 'Active' : 'Inactive'}</div>`;
+            },
+            sysinfo: () => {
+                if (!isDevMode) return devModeOnly();
+                
+                const memory = performance.memory ? 
+                    `${(performance.memory.usedJSHeapSize / 1048576).toFixed(2)} MB` : 'N/A';
+                
+                return `<div class="terminal-success">💻 System Information:</div>
+                <div class="terminal-output">Hostname: cybersec-terminal.local</div>
+                <div class="terminal-output">OS: ${navigator.platform}</div>
+                <div class="terminal-output">User Agent: ${navigator.userAgent.substring(0, 50)}...</div>
+                <div class="terminal-output">Memory Usage: ${memory}</div>
+                <div class="terminal-output">Connection: ${navigator.connection?.effectiveType || 'Unknown'}</div>
+                <div class="terminal-output">CPU Cores: ${navigator.hardwareConcurrency || 'Unknown'}</div>`;
+            },
+            matrix: () => {
+                if (!isDevMode) return devModeOnly();
+                
+                return `<div class="terminal-success">
+▓█████▄  ▒█████   ▓█████▄   ▄████ ▓█████      ▄▄▄█████▓ ██░ ██ ▓█████     ███▄ ▄███▓ ▄▄▄     ▄▄▄█████▓ ██▀███   ██▓▒██   ██▒
+▒██▀ ██▌▒██▒  ██▒ ▒██▀ ██▌ ██▒ ▀█▒▓█   ▀      ▓  ██▒ ▓▒▓██░ ██▒▓█   ▀    ▓██▒▀█▀ ██▒▒████▄   ▓  ██▒ ▓▒▓██ ▒ ██▒▓██▒▒▒ █ █ ▒░
+░██   █▌▒██░  ██▒ ░██   █▌▒██░▄▄▄░▒███        ▒ ▓██░ ▒░▒██▀▀██░▒███      ▓██    ▓██░▒██  ▀█▄ ▒ ▓██░ ▒░▓██ ░▄█ ▒▒██▒░░  █   ░
+</div>
+<div class="terminal-output" style="color: #0f0;">Wake up, Neo... The Matrix has you...</div>
+<div class="terminal-output" style="color: #0f0;">Follow the white rabbit. 🐰</div>`;
+            },
+            hack: () => {
+                if (!isDevMode) return devModeOnly();
+                
+                // Trigger hack animation
+                startHackAnimation();
+                
+                return 'HACK_ANIMATION';
+            },
+            theme: () => {
+                if (!isDevMode) return devModeOnly();
+                
+                const currentBg = terminalBody.style.backgroundColor || '#000';
+                if (currentBg === '#000' || currentBg === 'rgb(0, 0, 0)') {
+                    terminalBody.style.backgroundColor = '#1a0033';
+                    terminalBody.style.color = '#ff00ff';
+                    return `<div class="terminal-success">Theme changed to: Purple Haze</div>`;
+                } else {
+                    terminalBody.style.backgroundColor = '#000';
+                    terminalBody.style.color = '#0f0';
+                    return `<div class="terminal-success">Theme changed to: Matrix Green</div>`;
+                }
+            },
+            'exit-dev': () => {
+                if (!isDevMode) {
+                    return `<div class="terminal-error">Not in developer mode</div>`;
+                }
+                isDevMode = false;
+                updateTerminalTheme(false);
+                return `<div class="terminal-warning">Developer mode deactivated</div>
+                <div class="terminal-output">Returning to regular terminal...</div>`;
+            },
+            clear: () => 'CLEAR_SCREEN'
+        };
+        
+        // Helper function for dev mode only commands
+        function devModeOnly() {
+            return `<div class="terminal-error">⚠️  Access Denied!</div>
+            <div class="terminal-output">This command requires developer mode.</div>
+            <div class="terminal-output">Type 'sudo dev' to unlock developer mode.</div>`;
+        }
+        
+        // Update terminal theme based on dev mode
+        function updateTerminalTheme(devMode) {
+            const terminalTitle = document.querySelector('.terminal-title');
+            if (devMode) {
+                terminalContainer.style.borderColor = '#ffbd2e';
+                terminalContainer.style.boxShadow = '0 0 30px rgba(255, 189, 46, 0.5)';
+                terminalTitle.innerHTML = '<i class="fas fa-user-secret"></i> CyberSec Terminal v1.0 [DEV MODE]';
+                document.querySelector('.terminal-prompt').style.color = '#ffbd2e';
+            } else {
+                terminalContainer.style.borderColor = 'var(--primary)';
+                terminalContainer.style.boxShadow = '0 0 30px rgba(255, 0, 0, 0.5)';
+                terminalTitle.innerHTML = '<i class="fas fa-lock"></i> CyberSec Terminal v1.0';
+                document.querySelector('.terminal-prompt').style.color = 'var(--primary)';
+            }
+        }
+
+        // Hack Animation Function
+        function startHackAnimation() {
+            const hackingOverlay = document.getElementById('hackingOverlay');
+            const scanlines = document.getElementById('scanlines');
+            const staticOverlay = document.getElementById('staticOverlay');
+            const hackAlert = document.getElementById('hackAlert');
+            const inputLine = terminalBody.querySelector('.terminal-input-line');
+            
+            // Disable input during animation
+            terminalInput.disabled = true;
+            
+            const hackSequence = [
+                { text: '⚠️  INITIATING HACKING SEQUENCE...', type: 'warning', delay: 100, effect: 'shake' },
+                { text: '[ ... ] Scanning network...', type: 'output', delay: 800 },
+                { text: '[ OK ] Network scan complete', type: 'success', delay: 500, effect: 'corruption' },
+                { text: '[ ... ] Connecting to mainframe...', type: 'output', delay: 1000 },
+                { text: '[ OK ] Connection established', type: 'success', delay: 600, effect: 'shake' },
+                { text: '[ ... ] Bypassing firewall...', type: 'output', delay: 1200 },
+                { text: '[ OK ] Firewall bypassed', type: 'success', delay: 500, effect: 'corruption' },
+                { text: '[ ... ] Cracking encryption...', type: 'output', delay: 1500 },
+                { text: '[ OK ] Encryption cracked', type: 'success', delay: 700, effect: 'intenseshake' },
+                { text: '[ ... ] Extracting data...', type: 'output', delay: 1000 },
+                { text: '[ ████████████████████████████████ ] 100%', type: 'success', delay: 800, effect: 'static' },
+                { text: '⚡ BREAKTHROUGH ACHIEVED ⚡', type: 'warning', delay: 600, glitch: true, effect: 'alert' },
+                { text: '✓ HACK SUCCESSFUL!', type: 'success', delay: 500, glitch: true, effect: 'intenseshake' },
+                { text: 'Just kidding! This is just a simulation 😄', type: 'output', delay: 500 }
+            ];
+            
+            let currentIndex = 0;
+            
+            // Start ALL visual effects
+            hackingOverlay.classList.add('active');
+            scanlines.classList.add('active');
+            staticOverlay.classList.add('active');
+            document.body.classList.add('screen-shake');
+            
+            // Create matrix rain effect
+            createMatrixRain();
+            
+            // Add random corruption texts on screen
+            setInterval(() => {
+                if (currentIndex < hackSequence.length) {
+                    createCorruptionText();
+                }
+            }, 300);
+            
+            function displayNextLine() {
+                if (currentIndex >= hackSequence.length) {
+                    // Animation complete - Dramatic cleanup
+                    setTimeout(() => {
+                        hackingOverlay.classList.remove('active');
+                        scanlines.classList.remove('active');
+                        staticOverlay.classList.remove('active');
+                        hackAlert.classList.remove('active');
+                        document.body.classList.remove('screen-shake');
+                        document.body.classList.remove('intense-hack');
+                        terminalInput.disabled = false;
+                        terminalInput.focus();
+                        
+                        // Clear matrix rain
+                        const matrixCodes = document.querySelectorAll('.matrix-code');
+                        matrixCodes.forEach(code => code.remove());
+                        
+                        // Clear corruption texts
+                        const corruptionTexts = document.querySelectorAll('.corruption-text');
+                        corruptionTexts.forEach(text => text.remove());
+                    }, 1000);
+                    return;
+                }
+                
+                const line = hackSequence[currentIndex];
+                const lineDiv = document.createElement('div');
+                lineDiv.className = `terminal-line terminal-${line.type}`;
+                
+                if (line.glitch) {
+                    lineDiv.classList.add('glitch-text');
+                }
+                
+                // Typing effect
+                let charIndex = 0;
+                lineDiv.textContent = '';
+                terminalBody.insertBefore(lineDiv, inputLine);
+                
+                const typingInterval = setInterval(() => {
+                    if (charIndex < line.text.length) {
+                        lineDiv.textContent += line.text[charIndex];
+                        charIndex++;
+                        terminalBody.scrollTop = terminalBody.scrollHeight;
+                    } else {
+                        clearInterval(typingInterval);
+                        currentIndex++;
+                        
+                        // Trigger special effects
+                        if (line.effect) {
+                            triggerEffect(line.effect);
+                        }
+                        
+                        setTimeout(displayNextLine, line.delay);
+                    }
+                }, 30);
+            }
+            
+            // Trigger special effects
+            function triggerEffect(effect) {
+                switch(effect) {
+                    case 'shake':
+                        document.body.classList.remove('screen-shake');
+                        setTimeout(() => document.body.classList.add('screen-shake'), 10);
+                        break;
+                    case 'intenseshake':
+                        document.body.classList.add('intense-hack');
+                        setTimeout(() => document.body.classList.remove('intense-hack'), 500);
+                        break;
+                    case 'corruption':
+                        for (let i = 0; i < 5; i++) {
+                            setTimeout(() => createCorruptionText(), i * 100);
+                        }
+                        break;
+                    case 'static':
+                        staticOverlay.style.opacity = '0.5';
+                        setTimeout(() => staticOverlay.style.opacity = '1', 300);
+                        break;
+                    case 'alert':
+                        hackAlert.classList.add('active');
+                        setTimeout(() => hackAlert.classList.remove('active'), 1000);
+                        break;
+                }
+            }
+            
+            displayNextLine();
+        }
+        
+        // Create Matrix Rain Effect
+        function createMatrixRain() {
+            const overlay = document.getElementById('hackingOverlay');
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            
+            for (let i = 0; i < 30; i++) {
+                const matrixCode = document.createElement('div');
+                matrixCode.className = 'matrix-code';
+                matrixCode.style.left = Math.random() * 100 + '%';
+                matrixCode.style.animationDelay = Math.random() * 2 + 's';
+                matrixCode.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                
+                let code = '';
+                for (let j = 0; j < 20; j++) {
+                    code += chars[Math.floor(Math.random() * chars.length)] + ' ';
+                }
+                matrixCode.textContent = code;
+                
+                overlay.appendChild(matrixCode);
+            }
+        }
+        
+        // Create Corruption Text Effect
+        function createCorruptionText() {
+            const corruptionText = document.createElement('div');
+            corruptionText.className = 'corruption-text';
+            
+            const messages = [
+                'ACCESS_DENIED', 'ERROR_404', 'BREACH_DETECTED', 
+                'FIREWALL_DOWN', 'SYSTEM_COMPROMISED', 'DATA_LEAK',
+                '0x4E4F4E45', 'ROOT_ACCESS', 'KERNEL_PANIC',
+                'STACK_OVERFLOW', 'SEGFAULT', 'NULL_POINTER',
+                '01010011 01001111 01010011', 'WARNING',
+                'UNAUTHORIZED', 'INTRUSION_DETECTED'
+            ];
+            
+            corruptionText.textContent = messages[Math.floor(Math.random() * messages.length)];
+            corruptionText.style.left = Math.random() * 90 + '%';
+            corruptionText.style.top = Math.random() * 90 + '%';
+            corruptionText.style.fontSize = (Math.random() * 10 + 12) + 'px';
+            
+            // Random colors
+            const colors = ['#0f0', '#f00', '#00f', '#ff0', '#0ff', '#f0f'];
+            corruptionText.style.color = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.body.appendChild(corruptionText);
+            
+            // Auto remove after animation
+            setTimeout(() => corruptionText.remove(), 2000);
+        }
+
+        // Toggle Terminal
+        function toggleTerminal() {
+            isTerminalOpen = !isTerminalOpen;
+            terminalContainer.classList.toggle('active');
+            
+            if (isTerminalOpen) {
+                terminalInput.focus();
+            }
+        }
+
+        // Execute Command
+        function executeCommand(cmd) {
+            const parts = cmd.trim().split(' ');
+            const command = parts[0].toLowerCase();
+            
+            if (command === '') return;
+            
+            // Add command to history
+            commandHistory.push(cmd);
+            historyIndex = commandHistory.length;
+            
+            // Display command
+            const commandLine = document.createElement('div');
+            commandLine.className = 'terminal-line';
+            commandLine.innerHTML = `<span class="terminal-prompt">guest@pkl:~$</span> ${cmd}`;
+            
+            const inputLine = terminalBody.querySelector('.terminal-input-line');
+            terminalBody.insertBefore(commandLine, inputLine);
+            
+            // Execute command
+            let output = '';
+            
+            if (commands[command]) {
+                output = commands[command](parts);
+            } else {
+                output = `<div class="terminal-error">Command not found: ${command}</div>
+                <div class="terminal-output">Type 'help' to see available commands</div>`;
+            }
+            
+            // Handle special commands
+            if (output === 'CLEAR_SCREEN') {
+                const lines = terminalBody.querySelectorAll('.terminal-line');
+                lines.forEach(line => line.remove());
+            } else if (output === 'HACK_ANIMATION') {
+                // Hack animation is handled separately, don't add output
+                return;
+            } else {
+                const outputDiv = document.createElement('div');
+                outputDiv.className = 'terminal-line';
+                outputDiv.innerHTML = output;
+                terminalBody.insertBefore(outputDiv, inputLine);
+            }
+            
+            // Clear input
+            terminalInput.value = '';
+            
+            // Scroll to bottom
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        // Event Listeners
+        const terminalLink = document.getElementById('terminalLink');
+        
+        if (terminalToggle) {
+            terminalToggle.addEventListener('click', toggleTerminal);
+        }
+        
+        if (terminalLink) {
+            terminalLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleTerminal();
+            });
+        }
+        
+        terminalClose.addEventListener('click', toggleTerminal);
+        terminalMinimize.addEventListener('click', toggleTerminal);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl + ; to toggle terminal in DEV MODE
+            if (e.ctrlKey && e.key === ';') {
+                e.preventDefault();
+                
+                if (!isTerminalOpen) {
+                    // Open terminal and activate dev mode automatically
+                    toggleTerminal();
+                    if (!isDevMode) {
+                        isDevMode = true;
+                        updateTerminalTheme(true);
+                        
+                        // Add notification message
+                        const devModeMsg = document.createElement('div');
+                        devModeMsg.className = 'terminal-line';
+                        devModeMsg.innerHTML = `<div class="terminal-warning">🔐 Developer Mode activated via keyboard shortcut!</div>
+                        <div class="terminal-output">Type 'help' to see developer commands</div>
+                        <div class="terminal-line"></div>`;
+                        const inputLine = terminalBody.querySelector('.terminal-input-line');
+                        terminalBody.insertBefore(devModeMsg, inputLine);
+                    }
+                } else {
+                    toggleTerminal();
+                }
+            }
+            
+            // ESC to close terminal
+            if (e.key === 'Escape' && isTerminalOpen) {
+                toggleTerminal();
+            }
+        });
+
+        // Terminal input handling
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                executeCommand(terminalInput.value);
+            }
+            
+            // Arrow up - previous command
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    terminalInput.value = commandHistory[historyIndex];
+                }
+            }
+            
+            // Arrow down - next command
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    terminalInput.value = commandHistory[historyIndex];
+                } else {
+                    historyIndex = commandHistory.length;
+                    terminalInput.value = '';
+                }
+            }
+        });
+
+        // Click terminal body to focus input
+        terminalBody.addEventListener('click', () => {
+            terminalInput.focus();
+        });
+
+        console.log('💻 Hidden Terminal loaded!');
+        console.log('🔗 Click "Open Terminal" in footer for regular mode');
+        console.log('🔐 Press Ctrl+; for Developer Mode with extra commands!');
+        console.log('💡 Password hint: Check the source code or type "sudo dev" in terminal');
+    </script>
+</body>
+</html>-
