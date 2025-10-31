@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -53,18 +54,24 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 15px 0;
+            padding: 10px 0;
             transition: var(--transition);
             border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .navbar-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
         }
 
         .logo {
@@ -74,6 +81,7 @@
             text-decoration: none;
             display: flex;
             align-items: center;
+            z-index: 1001;
         }
 
         .logo span {
@@ -90,11 +98,93 @@
         .nav-links {
             display: flex;
             list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
         .nav-links li {
             margin-left: 30px;
             position: relative;
+        }
+
+        .hamburger {
+            display: none;
+            width: 30px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--text);
+            margin: 4px 0;
+            transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                height: 100vh;
+                width: 100%;
+                background: linear-gradient(to right, rgba(0, 0, 0, 0.98), rgba(0, 0, 0, 0.95));
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+                padding: 80px 20px;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+
+            .nav-links.active {
+                left: 0;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links li {
+                margin: 20px 0;
+                opacity: 0;
+                transform: translateX(-20px);
+                transition: 0.3s ease;
+            }
+
+            .nav-links.active li {
+                opacity: 1;
+                transform: translateX(0);
+                transition-delay: 0.2s;
+            }
+
+            .nav-links li:nth-child(2) { transition-delay: 0.1s; }
+            .nav-links li:nth-child(3) { transition-delay: 0.2s; }
+            .nav-links li:nth-child(4) { transition-delay: 0.3s; }
+            .nav-links li:nth-child(5) { transition-delay: 0.4s; }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+                background: var(--primary);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+                background: var(--primary);
+            }
         }
 
         .nav-links a {
@@ -561,18 +651,73 @@
             animation: glitchEffect 0.3s ease-in-out infinite;
         }
 
+        /* Mobile Optimizations & Animations */
+        @media (hover: none) {
+            .nav-links a:hover::after {
+                width: 0;
+            }
+
+            .nav-links a:active {
+                color: var(--primary);
+            }
+
+            .btn:hover {
+                transform: none;
+            }
+
+            .btn:active {
+                transform: scale(0.98);
+            }
+
+            .project-card:hover {
+                transform: none;
+            }
+
+            .project-card:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Performance Optimizations */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Smooth Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .fade-in {
+                transition-duration: 0.4s;
+            }
+        }
+
         /* More Dramatic Effects */
         @keyframes intenseShake {
             0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            10% { transform: translate(-10px, -8px) rotate(-2deg); }
-            20% { transform: translate(10px, 8px) rotate(2deg); }
-            30% { transform: translate(-8px, 10px) rotate(-2deg); }
-            40% { transform: translate(8px, -10px) rotate(2deg); }
-            50% { transform: translate(-10px, -8px) rotate(-2deg); }
-            60% { transform: translate(10px, 8px) rotate(2deg); }
-            70% { transform: translate(-8px, 10px) rotate(-2deg); }
-            80% { transform: translate(8px, -10px) rotate(2deg); }
-            90% { transform: translate(-10px, -8px) rotate(-2deg); }
+            10% { transform: translate(-5px, -4px) rotate(-1deg); }
+            20% { transform: translate(5px, 4px) rotate(1deg); }
+            30% { transform: translate(-4px, 5px) rotate(-1deg); }
+            40% { transform: translate(4px, -5px) rotate(1deg); }
+            50% { transform: translate(-5px, -4px) rotate(-1deg); }
+            60% { transform: translate(5px, 4px) rotate(1deg); }
+            70% { transform: translate(-4px, 5px) rotate(-1deg); }
+            80% { transform: translate(4px, -5px) rotate(1deg); }
+            90% { transform: translate(-5px, -4px) rotate(-1deg); }
         }
 
         @keyframes rgbSplit {
@@ -1220,6 +1365,85 @@
             color: var(--primary);
         }
 
+        .skill-item p {
+            margin-bottom: 0;
+        }
+
+        /* Links Menu di bawah Kompetensi */
+        .links-menu {
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.05), rgba(26, 26, 26, 0.8));
+            border-radius: 15px;
+            border: 2px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .links-menu-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .link-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+            background-color: rgba(255, 0, 0, 0.05);
+        }
+
+        .link-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .link-card h3 {
+            color: var(--text);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .link-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .link-card a {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--primary);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .link-card a:hover {
+            background-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
         /* Projects Section */
         .projects {
             background-color: rgba(26, 26, 26, 0.7);
@@ -1472,44 +1696,202 @@
             opacity: 0.5;
         }
 
-        /* Responsif untuk HP */
+        /* Responsif styles */
         @media (max-width: 768px) {
-            .pembuka-flex {
+            /* Container & Layout */
+            .container {
+                width: 100%;
+                padding: 0 20px;
+            }
+
+            section {
+                padding: 60px 0;
+                margin-top: 60px;
+            }
+
+            /* Typography */
+            h1 {
+                font-size: 2.2rem;
+                line-height: 1.3;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
+            /* Hero Section */
+            .hero-content {
+                text-align: center;
+                padding: 40px 20px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+            }
+
+            /* About Section */
+            .about-content {
                 flex-direction: column;
+                gap: 30px;
             }
 
-            .pembuka-images {
-                flex-direction: row;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-
-            .pembuka-img {
-                width: 45%;
-            }
-
-            .pembuka-content {
+            .about-text {
                 text-align: center;
             }
 
-            /* Responsive for Pendahuluan & Latar Belakang */
-            #pendahuluan .about-content,
-            #latar-belakang > div > div {
-                grid-template-columns: 1fr !important;
+            /* Skills Section */
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
             }
 
-            #pendahuluan h3,
-            #latar-belakang h3 {
-                font-size: 1.5rem !important;
+            .skill-card {
+                padding: 20px;
             }
 
-            #pendahuluan .code-container,
-            #latar-belakang .code-container {
-                margin-bottom: 20px;
+            .skill-icon {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            /* Projects Section */
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .project-card {
+                width: 100%;
+                margin: 0;
+                padding: 20px;
+            }
+
+            .project-image {
+                height: 200px;
+            }
+
+            /* Contact Section */
+            .contact-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .contact-form {
+                padding: 20px;
+                width: 100%;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            input, textarea {
+                padding: 12px;
+                font-size: 1rem;
+            }
+
+            /* Social Links */
+            .social-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+                padding: 20px 0;
+            }
+
+            .social-link {
+                font-size: 1.5rem;
             }
         }
 
-        /* Responsif */
+        /* Extra Small Devices */
+        @media (max-width: 480px) {
+            /* Container & Layout */
+            .container {
+                padding: 0 15px;
+            }
+
+            section {
+                padding: 40px 0;
+            }
+
+            /* Typography */
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            /* Skills Section */
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .skill-card {
+                padding: 15px;
+            }
+
+            /* Project Cards */
+            .project-card {
+                padding: 15px;
+            }
+
+            .project-image {
+                height: 180px;
+            }
+
+            /* Contact Form */
+            .contact-form {
+                padding: 15px;
+            }
+
+            /* Buttons */
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            /* Social Links */
+            .social-links {
+                gap: 15px;
+            }
+
+            .social-link {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Landscape Mode Fix */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .nav-links {
+                padding: 60px 20px;
+                overflow-y: auto;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+        }
+
+        /* Responsif tablet */
         @media (max-width: 992px) {
             .avatar-container {
                 position: relative;
@@ -1566,6 +1948,97 @@
             .section-title {
                 font-size: 2rem;
             }
+        }
+
+        /* Modal untuk Skill Detail */
+        .skill-modal {
+            display: none;
+            position: fixed;
+            z-index: 10002;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .skill-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .skill-modal-content {
+            background: linear-gradient(135deg, var(--card-bg), rgba(26, 26, 26, 0.95));
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            position: relative;
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .skill-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        .skill-modal-close:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .skill-modal-title {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .skill-modal-title i {
+            font-size: 2.5rem;
+        }
+
+        .skill-modal-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .skill-modal-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skill-modal-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .skill-modal-features li:before {
+            content: "✓ ";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -1647,7 +2120,7 @@
         <!-- Avatar -->
         <div class="avatar-container">
             <div class="avatar" id="avatar">
-                <img src="anime.png" alt="Foto Profil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                <img src="Img/Guinaifen.jpg" alt="Foto Profil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
             </div>
         </div>
         
@@ -1930,8 +2403,8 @@
             <div class="pembuka-flex">
                 <!-- Foto di kiri -->
                 <div class="pembuka-images">
-                    <img src="Dokumentasi 1.jpeg" alt="Kegiatan TEFA" class="pembuka-img">
-                    <img src="Dokumentasi 2.jpeg" alt="Siswa PKL" class="pembuka-img">
+                    <img src="Img/Dokumentasi 1.jpeg" alt="Kegiatan TEFA" class="pembuka-img">
+                    <img src="Img/Dokumentasi 2.jpeg" alt="Siswa PKL" class="pembuka-img">
                 </div>
 
                 <!-- Teks di kanan -->
@@ -2005,6 +2478,34 @@
                     <div class="skill-item">
                         <i class="fa-solid fa-code"></i>
                         <p>Web Development</p>
+                    </div>
+                </div>
+
+                <!-- Links Menu -->
+                <div class="links-menu">
+                    <h3 class="links-menu-title">
+                        <i class="fas fa-link" style="margin-right: 10px;"></i>
+                        Useful Links & Resources
+                    </h3>
+                    <div class="links-grid">
+                        <div class="link-card">
+                            <i class="fas fa-file-alt"></i>
+                            <h3>Laporan di Al-Huda</h3>
+                            <p>Lihat laporan saya saat PKL di Al-Huda Kota Malang</p>
+                            <a href="https://docs.google.com/document/d/1pnbdQm0_spmyF1JqVnNMMWFduGLPmtj-g914geodRW0/edit?usp=sharing" target="_blank">Lihat Laporan</a>
+                        </div>
+                        <div class="link-card">
+                            <i class="fas fa-file-alt"></i>
+                            <h3>Laporan Scan Penetration</h3>
+                            <p>Lihat laparan saya saat melakukan scan penetration</p>
+                            <a href="https://docs.google.com/document/d/1gNm5fssQ12rSqZsPoivnKK2OWKU1yyRV0lNDYnM8a7k/edit?usp=sharing" target="_blank">Lihat Laporan</a>
+                        </div>
+                        <div class="link-card">
+                            <i class="fas fa-file-alt"></i>
+                            <h3>Laporan PKL</h3>
+                            <p>Kegiatan PKL yang saya lakukan di Sekolah</p>
+                            <a href="https://docs.google.com/document/d/1LdFT1fmOl4PGRWFe1cq__JCAnLgQDJBffkdap9wuBNM/edit?usp=sharing" target="_blank">View Certificates</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2149,6 +2650,19 @@
             </p>
         </div>
     </footer>
+
+    <!-- Modal untuk Skill Detail -->
+    <div id="skillModal" class="skill-modal">
+        <div class="skill-modal-content">
+            <button class="skill-modal-close" onclick="closeSkillModal()">&times;</button>
+            <h2 class="skill-modal-title" id="modalTitle">
+                <i id="modalIcon"></i>
+                <span id="modalSkillName"></span>
+            </h2>
+            <p class="skill-modal-description" id="modalDescription"></p>
+            <ul class="skill-modal-features" id="modalFeatures"></ul>
+        </div>
+    </div>
 
     <script>
         // Typing Effect
@@ -2372,7 +2886,7 @@
                 this.style.boxShadow = '0 0 70px rgba(255, 140, 0, 0.7)';
                 
                 setTimeout(() => {
-                    this.innerHTML = '<img src="anime.png" alt="Foto Profil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">';
+                    this.innerHTML = '<img src="Img/Guinaifen.jpg" alt="Foto Profil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">';
                     this.style.background = 'linear-gradient(145deg, var(--primary), var(--primary-dark))';
                     this.style.boxShadow = '0 0 50px rgba(255, 0, 0, 0.5)';
                     avatarClickCount = 0;
@@ -3241,6 +3755,266 @@
         console.log('🔗 Click "Open Terminal" in footer for regular mode');
         console.log('🔐 Press Ctrl+; for Developer Mode with extra commands!');
         console.log('💡 Password hint: Check the source code or type "sudo dev" in terminal');
+
+        // Skill Modal Functions
+        const skillDetails = {
+            'Bug Bounty': {
+                icon: 'fas fa-bug',
+                description: 'Kemampuan untuk menemukan dan melaporkan kerentanan keamanan pada aplikasi web dan sistem untuk mendapatkan reward.',
+                features: [
+                    'Identifikasi kerentanan keamanan aplikasi web',
+                    'Analisis dan eksploitasi celah keamanan',
+                    'Dokumentasi dan pelaporan bug secara profesional',
+                    'Pemahaman tentang OWASP Top 10',
+                    'Penggunaan tools seperti Burp Suite, OWASP ZAP'
+                ]
+            },
+            'Digital Forensic': {
+                icon: 'fa fa-search',
+                description: 'Keahlian dalam menganalisis bukti digital untuk investigasi kejahatan siber dan pemulihan data.',
+                features: [
+                    'Analisis file sistem dan metadata',
+                    'Pemulihan data yang terhapus',
+                    'Investigasi kejahatan siber',
+                    'Chain of custody dan dokumentasi bukti',
+                    'Penggunaan tools seperti Autopsy, FTK'
+                ]
+            },
+            'CryptoGraphy': {
+                icon: 'fa-solid fa-lock-open',
+                description: 'Pemahaman tentang enkripsi, dekripsi, dan teknik kriptografi untuk mengamankan data.',
+                features: [
+                    'Implementasi algoritma enkripsi (AES, RSA)',
+                    'Analisis dan pemecahan cipher',
+                    'Hash functions dan digital signatures',
+                    'Public Key Infrastructure (PKI)',
+                    'Steganografi dan teknik penyembunyian data'
+                ]
+            },
+            'Kali Linux': {
+                icon: 'fa-brands fa-linux',
+                description: 'Penguasaan sistem operasi Kali Linux untuk penetration testing dan security auditing.',
+                features: [
+                    'Navigasi dan command line Linux',
+                    'Instalasi dan konfigurasi tools security',
+                    'Scripting dan automation',
+                    'Network configuration dan troubleshooting',
+                    'Customization dan optimization'
+                ]
+            },
+            'CTF': {
+                icon: 'fa-solid fa-flag',
+                description: 'Pengalaman dalam kompetisi Capture The Flag untuk mengasah kemampuan cybersecurity.',
+                features: [
+                    'Web exploitation dan reverse engineering',
+                    'Binary exploitation dan pwn challenges',
+                    'Cryptography challenges',
+                    'Forensics dan steganography',
+                    'Problem solving dan analytical thinking'
+                ]
+            },
+            'Python': {
+                icon: 'fab fa-python',
+                description: 'Kemampuan programming Python untuk automation, scripting, dan pengembangan tools security.',
+                features: [
+                    'Scripting dan automation tasks',
+                    'Pengembangan security tools',
+                    'Web scraping dan data analysis',
+                    'Network programming dengan socket',
+                    'Library seperti requests, scapy, pwntools'
+                ]
+            },
+            'Security Research': {
+                icon: 'fa-solid fa-shield-halved',
+                description: 'Riset dan analisis keamanan untuk menemukan vulnerability dan mengembangkan solusi keamanan.',
+                features: [
+                    'Vulnerability research dan analysis',
+                    'Threat intelligence gathering',
+                    'Security assessment dan audit',
+                    'Exploit development dan mitigation',
+                    'Dokumentasi dan publikasi findings'
+                ]
+            },
+            'SQL Injection': {
+                icon: 'fa-solid fa-syringe',
+                description: 'Pemahaman tentang teknik SQL Injection dan cara mengeksploitasi serta mencegahnya.',
+                features: [
+                    'Identifikasi SQL injection vulnerabilities',
+                    'Teknik bypass WAF dan filtering',
+                    'Database enumeration dan extraction',
+                    'Blind SQL injection techniques',
+                    'Secure coding practices untuk prevention'
+                ]
+            },
+            'Network Security': {
+                icon: 'fa-solid fa-network-wired',
+                description: 'Keahlian dalam mengamankan jaringan komputer dan menganalisis traffic network.',
+                features: [
+                    'Network scanning dan reconnaissance',
+                    'Packet analysis dengan Wireshark',
+                    'Firewall configuration dan IDS/IPS',
+                    'VPN dan secure communication',
+                    'Network hardening dan best practices'
+                ]
+            },
+            'Penetration Testing': {
+                icon: 'fa-solid fa-terminal',
+                description: 'Kemampuan melakukan penetration testing untuk menguji keamanan sistem dan aplikasi.',
+                features: [
+                    'Information gathering dan reconnaissance',
+                    'Vulnerability scanning dan assessment',
+                    'Exploitation dan post-exploitation',
+                    'Privilege escalation techniques',
+                    'Report writing dan remediation advice'
+                ]
+            },
+            'Git & GitHub': {
+                icon: 'fa-brands fa-git-alt',
+                description: 'Penguasaan version control system untuk kolaborasi dan manajemen kode.',
+                features: [
+                    'Version control dan branching strategies',
+                    'Collaboration dan pull requests',
+                    'Repository management',
+                    'CI/CD integration',
+                    'Open source contribution'
+                ]
+            },
+            'Web Development': {
+                icon: 'fa-solid fa-code',
+                description: 'Kemampuan mengembangkan aplikasi web dengan berbagai teknologi modern.',
+                features: [
+                    'HTML, CSS, JavaScript fundamentals',
+                    'Frontend frameworks (React, Vue)',
+                    'Backend development (Node.js, PHP)',
+                    'Database design dan management',
+                    'Responsive design dan UX/UI'
+                ]
+            }
+        };
+
+        function showSkillDetail(skillName) {
+            const modal = document.getElementById('skillModal');
+            const skill = skillDetails[skillName];
+            
+            if (skill) {
+                document.getElementById('modalIcon').className = skill.icon;
+                document.getElementById('modalSkillName').textContent = skillName;
+                document.getElementById('modalDescription').textContent = skill.description;
+                
+                const featuresList = document.getElementById('modalFeatures');
+                featuresList.innerHTML = '';
+                skill.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.textContent = feature;
+                    featuresList.appendChild(li);
+                });
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeSkillModal() {
+            const modal = document.getElementById('skillModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('skillModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSkillModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSkillModal();
+            }
+        });
+        // Mobile Navigation
+        const hamburgerBtn = document.querySelector('.hamburger');
+        const mobileNav = document.querySelector('.nav-links');
+        const mobileNavItems = document.querySelectorAll('.nav-links li a');
+        const body = document.querySelector('body');
+
+        // Hamburger menu functionality
+        if (hamburgerBtn) {
+            hamburgerBtn.addEventListener('click', () => {
+                hamburgerBtn.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+                body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
+            });
+
+            // Close menu when clicking nav links
+            mobileNavItems.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburgerBtn.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                    body.style.overflow = 'auto';
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (mobileNav.classList.contains('active') && 
+                    !mobileNav.contains(e.target) && 
+                    !hamburgerBtn.contains(e.target)) {
+                    hamburgerBtn.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                    body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Smooth scroll for mobile
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 60;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const fadeObserverOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, fadeObserverOptions);
+
+        fadeElements.forEach(element => {
+            fadeObserver.observe(element);
+        });
+
+        // Handle device orientation changes
+        window.addEventListener('orientationchange', () => {
+            if (mobileNav.classList.contains('active')) {
+                hamburgerBtn.classList.remove('active');
+                mobileNav.classList.remove('active');
+                body.style.overflow = 'auto';
+            }
+        });
     </script>
 </body>
-</html>-
+</html>
